@@ -1,36 +1,40 @@
-#tic tac toe
-# Finish implent Game AI 
+#tic tac toe implementation in python feel free to use 
+# wherever
 
-board = [ [ 0 , 0 , 0],
-            [ 0 , 0 , 0],
-            [ 0 , 0 , 0]]
+board = [ 0 , 0 , 0, 0 , 0 , 0, 0 , 0 , 0]
+
+
+#def AI(board):
+        #take the board state, and calculate the
+        #best probable move
+
+        
+
 
 def is_Draw(board):
-	found = False
-
-	for index in range(0, 2):
-		for index_b in range(0, 2):
-			if 0 == board[index][index_b]:
-				found = True
-	if found == True:
-		return False
-	else:
-		return True
+    found  = None
+    for index in range(0, 8):
+        if board[index] == 0:
+            found  = True
+    if found == True:
+        return False
+    else:
+        return True    
 
 def is_Win(board):
     win_c1 = 'XXX'
     win_c2 = 'KKK'
     won = False
-    res  = str(board[0][0]) + str(board[0][1]) + str(board[0][2])
-    res_1  = str(board[1][0]) + str(board[1][1]) + str(board[1][2])
-    res_2  = str(board[2][0]) + str(board[2][1]) + str(board[2][2])
+    res  = str(board[0]) + str(board[1]) + str(board[2])
+    res_1  = str(board[3]) + str(board[4]) + str(board[5])
+    res_2  = str(board[6]) + str(board[7]) + str(board[8])
 
-    ver = str(board[0][0]) + str(board[1][0]) + str(board[2][0])
-    ver_1 = str(board[0][1]) + str(board[1][1]) + str(board[2][1])
-    ver_2 = str(board[0][2]) + str(board[1][2]) + str(board[2][2])
+    ver = str(board[0]) + str(board[3]) + str(board[6])
+    ver_1 = str(board[1]) + str(board[4]) + str(board[7])
+    ver_2 = str(board[2]) + str(board[5]) + str(board[8])
                
-    edge = str(board[0][0]) + str(board[1][1]) + str(board[2][2])
-    edge2 = str(board[0][2]) + str(board[1][1]) + str(board[2][0])
+    edge = str(board[0]) + str(board[5]) + str(board[8])
+    edge2 = str(board[2]) + str(board[5]) + str(board[6])
     
     if res == win_c1:
         won = True
@@ -64,16 +68,22 @@ def is_Win(board):
         
     if ver_2 == win_c1:
         won = True
+        
     if ver_2 == win_c2:
         won = True
+        
     if edge == win_c1:
         won = True
+        
     if edge == win_c2:
         won = True
+        
     if edge2 == win_c1:
         won = True
+        
     if edge2 == win_c2:
         won = True
+        
     return won
         
 def play():
@@ -84,104 +94,59 @@ def play():
     A = input("X or O :")
     while(True):
         if (A == 'X'):
-            P = input("Enter your move : ")
-            if int(P) > 9:
+            P = int(input("Enter your move : "))
+            if P > 9:
                 print("Out of Bounds")
             else:
-                #n % 3 
-                res = int(P) % 3
-                if (res == 0) | (int(P) < 4):
-                    i = 0
-                    j = int(P) - 1
-                    if( int(P) == 1):
-                        i = 0
-                        j = 0
-                    if (int(P) == 2):
-                        i = 0
-                        j = 1
-                    if( int(P) == 6):
-                        i = 1
-                        j = 2
-                    if( int(P) == 9):
-                        i = 2
-                        j = 2
-                elif (res == 0) | (int(P) < 7):
-                    i = 1
-                    j = int(P) - 4
-                elif ( res == 0) | (int(P) >= 7) | (int(P) == 9):
-                    i = 2
-                    j = int(P) - 7
+               
 
-            if(board[i][j] == 0):
-                board[i][j] = 'X'
-            elif(board[i][j] == 'K'):
-                print("Your opponent has put a move there")
+                if(board[P] == 0):
+                    board[P] = 'X'
+                elif(board[P] == 'K'):
+                    print("Your opponent has put a move there")
         
-            else:
-                print( "You have already put a value for this square")
+                else:
+                    print( "You have already put a value for this square")
 
-            if(is_Draw(board) == True):
-                print("Game Over")
-                break 
+                if(is_Draw(board) == True):
+                       print("Game Over It's a draw")
+                       break 
+                    
+                print_board(board)
+                if(is_Win(board) == True):
+                      print("X has won")
+                      break
+                    
             
-            print_board(board)
-            if(is_Win(board) == True):
-                print("X has won")
-                break
-            
-            
-            P = input("Enter your move : ")
-            if int(P) > 9:
+            P = int(input("Enter your move : "))
+            if P > 9:
                 print("Out of Bounds")
-            else:
-                #n % 3 
-                res = int(P) % 3
-                if (res == 0) | (int(P) < 4):
-                    i = 0
-                    j = int(P) - 1
-                if( int(P) == 6):
-                    i = 1
-                    j = 2
-                if( int(P) == 9):
-                    i = 2
-                    j = 2
-                if(int(P) == 1):
-                    i = 0
-                    j = 0
-                if (int(P) == 2):
-                    i = 0
-                    j = 1
-                elif (res == 0) | (int(P) < 7):
-                    i = 1
-                    j = int(P) - 4
-                elif ( res == 0) | (int(P) >= 7) | (int(P) == 9):
-                    i = 2
-                    j = int(P) - 7
-            
-            if(board[i][j] == 0):
-                board[i][j] = 'K'
-            elif(board[i][j] == 'X'):
-                print("Your opponent has put a move there")
-            else:
-                print( " You have already put a value for this square")
+            else:           
+                if(board[P] == 0):
+                    board[P] = 'K'
+                elif(board[P] == 'X'):
+                    print("Your opponent has put a move there")
+                else:
+                    print( " You have already put a value for this square")
 
 
-            if(is_Draw(board) == True):
-                print("Game Over")
-                break
-            
-            
-            print_board(board)
-            if(is_Win(board) == True):
-                print("O has won")
-                break
+                if(is_Draw(board) == True):
+                    print("Game Over It's a Draw")
+                    break
+                    
+                    
+                print_board(board)
+                if(is_Win(board) == True):
+                    print("O has won")
+                    break
 
 
 
 def print_board(board):
-    print ( "| " + str(board [0 ][0]) + "|" +  str(board[0][1]) + "|" + str(board[0][2])+"\n"
-            "| " + str(board [1 ][0]) + "|" +  str(board[1][1]) + "|" + str(board[1][2])+"\n"
-             "| " + str(board [2 ][0]) + "|" +  str(board[2][1]) + "|" + str(board[2][2]))
+    print ( "| " + str(board [0 ]) + "|" +  str(board[1]) + "|" + str(board[2])+"\n"
+            "| " + str(board [3 ]) + "|" +  str(board[4]) + "|" + str(board[5])+"\n"
+             "| " + str(board [6]) + "|" +  str(board[7]) + "|" + str(board[8]))
 
     
 play()
+
